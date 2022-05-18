@@ -9,14 +9,15 @@ import {
 } from "react-native";
 import {AuthStyles} from "./AuthStyles";
 import {useState} from "react";
-import {Link} from "@react-navigation/native";
+import { AntDesign } from '@expo/vector-icons';
 
 const initialState = {
+    login: '',
     email: '',
     pass: ''
 }
 
-export default function LoginScreen() {
+export default function RegistrationScreen({navigation}) {
     const [state, setState] = useState(initialState)
     const [isShow, setShowPass] = useState(true)
     const [isShowKeyboard, setShowKeyboard] = useState(false)
@@ -41,10 +42,27 @@ export default function LoginScreen() {
                 >
 
                     <View style={AuthStyles.formContainer}>
+                        <View style={AuthStyles.imageContainer}>
+                            <TouchableOpacity>
+                                <AntDesign
+                                    name={'pluscircleo'}
+                                    style={AuthStyles.icon}
+                                    size={25}
+                                    color={'#FF6C00'}
+                                />
+                            </TouchableOpacity>
+                        </View>
 
-                        <Text style={{...AuthStyles.formTitle,marginTop:32}}>Войти</Text>
+                        <Text style={AuthStyles.formTitle}>Регистрация</Text>
 
                         <View style={AuthStyles.form}>
+                            <TextInput
+                                style={AuthStyles.input}
+                                onChangeText={(value) => setState(prevState => ({...prevState, login: value}))}
+                                value={state.login}
+                                placeholder="Логин"
+                                onFocus={() => setShowKeyboard(true)}
+                            />
                             <TextInput
                                 style={AuthStyles.input}
                                 onChangeText={(value) => setState(prevState => ({...prevState, email: value}))}
@@ -74,13 +92,14 @@ export default function LoginScreen() {
                                 style={AuthStyles.submitBtn}
                                 onPress={onSubmitHandler}
                             >
-                                <Text style={AuthStyles.submitBtnText}>Войти</Text>
+                                <Text style={AuthStyles.submitBtnText}>Зарегистрироваться</Text>
                             </TouchableOpacity>
-                            <Link
+                            <TouchableOpacity
                                 style={AuthStyles.changeScreen}
-                                to={{ screen: 'registration'}}>
-                                <Text style={AuthStyles.changeScreenText}>Нет аккаунта? Зарегистрироваться</Text>
-                            </Link>
+                                onPress={()=>navigation.navigate('login')}
+                            >
+                                <Text style={AuthStyles.changeScreenText}>Уже есть аккаунт? Войти</Text>
+                            </TouchableOpacity>
                         </View>
 
                     </View>

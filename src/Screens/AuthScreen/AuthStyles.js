@@ -80,6 +80,7 @@ export const AuthStyles = StyleSheet.create({
         height: 50,
         backgroundColor: '#FF6C00',
         borderRadius: 100,
+alignContent:"center",
     },
     submitBtnText:{
         fontSize: 16,
